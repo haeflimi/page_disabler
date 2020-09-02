@@ -64,7 +64,13 @@ function HookedMenu($element, $menu, data)
 }
 HookedMenu.prototype = {
     getTreeNode: function() {
-        return $.ui.dynatree.getNode(this.$element);
+        if($.ui.dynatree){
+            return $.ui.dynatree.getNode(this.$element);
+        } else if ($.ui.fancytree) {
+            return $.ui.fancytree.getNode(this.$element);
+        } else {
+            return null
+        }
     },
     updateLinkText: function() {
         this.$link.text(this.data.accessibleByGuest ? window.PageDisablerSitemapData.i18n.Disable : window.PageDisablerSitemapData.i18n.Enable);
